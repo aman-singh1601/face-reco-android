@@ -1,11 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import CustomCamera from '../components/CustomCamera'
+import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import CustomCamera from '../components/CustomCamera';
+import { NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../App"; 
+import CustomDialog from '../components/CustomDialog';
 
-export default function Home() {
+
+type HomeProps = NativeStackScreenProps<RootStackParamList, "Home">
+export default function Home({navigation}: HomeProps) {
+    const [visible, setVisible] = useState<boolean | undefined>(false);
+    const [imageUrl, setImageUrl]= useState<string | null>(null);
     return (
         <View style = {styles.container}>
-            <CustomCamera/>
+            <CustomDialog setVisible = {setVisible} visible = {visible} imageUrl = {imageUrl}/>
+            <CustomCamera setVisible = {setVisible} setImageUrl = {setImageUrl}/>
         </View>
     )
 }
